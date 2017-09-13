@@ -1,1 +1,4 @@
 codetest
+.vagrant
+provisioning/playbook.retry
+*.log

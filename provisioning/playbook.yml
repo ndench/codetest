@@ -1,0 +1,6 @@
+---
+- hosts: dev
+  roles:
+    - php
+    - nginx
+    - xdebug
