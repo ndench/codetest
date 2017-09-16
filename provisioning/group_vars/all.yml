@@ -2,11 +2,5 @@
 ansible_python_interpreter: /usr/bin/python3
 
 nginx:
-  webroot: /srv/www/codetest
+  webroot: /srv/www/codetest/web
   server_name: localhost
-  version: 1.10.*
-  enable_ssl: false
-
-php:
-  php_version: 7.1.*
-  acl_version: 2.2.*

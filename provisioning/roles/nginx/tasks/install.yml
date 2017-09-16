@@ -1,0 +1,30 @@
+---
+- name: install nginx
+  apt: 
+    pkg: nginx
+    state: present
+
+- name: ensure webroot exists
+  file:
+    path: "{{ nginx.webroot }}"
+    state: directory
+
+- name: create symfony nginx config
+  template: 
+    src: codetest.conf
+    dest: /etc/nginx/sites-available/codetest.conf
+  notify: restart nginx
+
+- name: delete default nginx config
+  file: 
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: restart nginx
+
+- name: create link symfony for nginx config
+  file: 
+    src: /etc/nginx/sites-available/codetest.conf
+    dest: /etc/nginx/sites-enabled/codetest.conf
+    state: link
+  notify: 
+    - restart nginx

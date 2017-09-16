@@ -1,4 +1,5 @@
 codetest
+.idea
 .vagrant
 provisioning/playbook.retry
 *.log
