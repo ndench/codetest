@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
+    'lotteryApi' => '10.0.2.2:8080',
 ];

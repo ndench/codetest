@@ -54,9 +54,6 @@ TODO: instructions on how to run PHP internal server instad of setting up dev en
 * virtualbox
 * ansible
 
-You will also need to clone https://github.com/ndench/ansible-common into the parent directory of this repo.
-The ansible-common repo contains ansible roles that I use across some of my projects.
-
 ## Starting the virtual machine
 Running `vagrant up` will bring up the VM. It will download the base ubuntu box, run some update scripts,
 then run some ansible provisioning to set it up for the project.
