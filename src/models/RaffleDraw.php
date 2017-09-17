@@ -25,6 +25,9 @@ class RaffleDraw extends AbstractNormalizable
     /** @var */
     protected $prize;
 
+    /** @var RaffleOffer[] */
+    protected $offers;
+
     public function getName(): string
     {
         return $this->name;
@@ -60,6 +63,14 @@ class RaffleDraw extends AbstractNormalizable
         return $this->prize;
     }
 
+    /**
+     * @return RaffleOffer[]
+     */
+    public function getOffers(): array
+    {
+        return $this->offers;
+    }
+
     protected static function getRequiredKeys(): array
     {
         return [
@@ -70,6 +81,7 @@ class RaffleDraw extends AbstractNormalizable
             'draw_stop',
             'terms_and_conditions_url',
             'prize',
+            'offers',
         ];
     }
 
@@ -83,6 +95,9 @@ class RaffleDraw extends AbstractNormalizable
         $draw->end = new \DateTime($data['draw_stop']);
         $draw->termsUrl = $data['terms_and_conditions_url'];
         $draw->prize = RafflePrize::fromArray($data['prize']);
+        $draw->offers = array_map(function (array $offerData) {
+            return RaffleOffer::fromArray($offerData);
+        }, $data['offers']);
 
         return $draw;
     }
@@ -97,6 +112,9 @@ class RaffleDraw extends AbstractNormalizable
             'endDate' => $this->getEnd()->format('d.m.Y H:i:s'),
             'termsUrl' => $this->getTermsUrl(),
             'prize' => $this->getPrize()->toArray(),
+            'offers' => array_map(function (RaffleOffer $offer) {
+                return $offer->toArray();
+            }, $this->getOffers()),
         ];
     }
 }
