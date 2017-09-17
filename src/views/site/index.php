@@ -2,9 +2,7 @@
 
 /* @var $this yii\web\View */
 
-use app\grid\LinkColumn;
 use yii\data\ArrayDataProvider;
-use yii\grid\DataColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -42,7 +40,7 @@ $this->title = 'Lottery Draws';
                                 'value' => function ($model, $key, $index, $column) {
                                     return Html::a(Html::encode($model['lottery']['name']), [
                                         'site/lotteries',
-                                        'id' => Html::encode($model['lottery']['lotteryId'])
+                                        'id' => Html::encode($model['lottery']['id'])
                                     ]);
                                 },
                                 'format' => 'raw',
@@ -52,7 +50,7 @@ $this->title = 'Lottery Draws';
                                 'value' => function ($model, $key, $index, $column) {
                                     return Html::a(Html::encode($model['draw']['name']), [
                                         'site/draws',
-                                        'id' => Html::encode($model['draw']['number'])
+                                        'number' => Html::encode($model['draw']['number'])
                                     ]);
                                 },
                                 'format' => 'raw',

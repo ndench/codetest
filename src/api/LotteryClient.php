@@ -62,6 +62,27 @@ class LotteryClient
         return $this->raffleTickets;
     }
 
+    public function getLotteryById(string $id): ?Lottery
+    {
+        $this->init();
+
+        if (!array_key_exists($id, $this->raffleLotteries)) {
+            return null;
+        }
+
+        return $this->raffleLotteries[$id];
+    }
+
+    public function getDrawByNumber(int $number): ?RaffleDraw
+    {
+        $this->init();
+
+        if (!array_key_exists($number, $this->raffleDraws)) {
+            return null;
+        }
+
+        return $this->raffleDraws[$number];
+    }
 
     protected function init(): void
     {

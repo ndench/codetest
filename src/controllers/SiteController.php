@@ -82,11 +82,23 @@ class SiteController extends Controller
         ]);
     }
 
-
     public function actionLotteries($id)
     {
         /** @var LotteryClient $client */
         $client = Yii::$app->lotteryClient;
 
+        $lottery = $client->getLotteryById($id);
+        return $this->render('lotteries', [
+            'lottery' => $lottery,
+        ]);
+    }
+
+    public function actionDraws($number)
+    {
+        /** @var LotteryClient $client */
+        $client = Yii::$app->lotteryClient;
+
+        $draw = $client->getDrawByNumber($number);
+        var_dump($draw);
     }
 }
