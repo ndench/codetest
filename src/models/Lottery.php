@@ -157,7 +157,7 @@ class Lottery extends AbstractNormalizable
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),
-            'desc' => $this->getDescription(),
+            'description' => $this->getDescription(),
             'multidraw' => $this->isMultidraw(),
             'type' => $this->getType(),
             'icon' => $this->getIconUrl(),

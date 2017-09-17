@@ -42,7 +42,6 @@ class RaffleTicket extends AbstractTicket
     protected static function getRequiredKeys(): array
     {
         return [
-            'type',
             'key',
             'name',
             'autoplayable',

@@ -16,7 +16,7 @@ abstract class AbstractNormalizable implements NormalizableInterface
     {
         $missingRequiredKeys = array_diff(static::getRequiredKeys(), array_keys($data));
         if (0 !== count($missingRequiredKeys)) {
-            throw new InvalidApiResponseException(sprintf('Expected keys: [%s]', implode(',', $data)));
+            throw new InvalidApiResponseException(sprintf('Expected keys: [%s]', implode(',', static::getRequiredKeys())));
         }
     }
 
