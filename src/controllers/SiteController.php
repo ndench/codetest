@@ -2,12 +2,17 @@
 
 namespace app\controllers;
 
+use app\api\LotteryClient;
 use app\models\ApiResult;
+use app\models\Lottery;
+use app\models\RaffleDraw;
+use app\models\RaffleTicket;
+use app\models\TicketInterface;
 use app\serializer\handler\LotteryApiResultHandler;
 use GuzzleHttp\Client;
+use krtv\yii2\serializer\Serializer;
 use Yii;
 use yii\filters\AccessControl;
-use yii\rest\Serializer;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -63,16 +68,25 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $apiUrl = Yii::$app->params['lotteryApi'];
-        $guzzle = new Client();
-        $res = $guzzle->get($apiUrl);
-        $body = $res->getBody()->getContents();
+        /** @var LotteryClient $client */
+        $client = Yii::$app->lotteryClient;
 
-        /** @var \krtv\yii2\serializer\Serializer $serializer */
-        $serializer = Yii::$app->serializer;
-        $shit = $serializer->deserialize($body, LotteryApiResultHandler::TYPE, 'json');
+        $tickets = $client->getRaffleTickets();
+        $ticketArray = array_map(function (RaffleTicket $ticket) {
+            return $ticket->toArray();
+        }, $tickets);
+
         return $this->render('index', [
-            'data' => $shit,
+            'raffles' => $ticketArray,
+            'lotteries' => [],
         ]);
+    }
+
+
+    public function actionLotteries($id)
+    {
+        /** @var LotteryClient $client */
+        $client = Yii::$app->lotteryClient;
+
     }
 }

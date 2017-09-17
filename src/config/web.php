@@ -1,8 +1,12 @@
 <?php
 
+use app\api\LotteryClient;
+use app\api\LotteryDeserializer;
 use app\serializer\handler\LotteryApiResultHandler;
+use app\serializer\handler\LotteryHandler;
 use app\serializer\handler\LotteryTicketHandler;
 use app\serializer\handler\RaffleTicketHandler;
+use GuzzleHttp\Client;
 
 $params = require(__DIR__ . '/params.php');
 
@@ -47,6 +51,9 @@ $config = [
             'rules' => [
             ],
         ],
+        'lotteryClient' => function () use ($params) {
+            return new LotteryClient(new Client(), $params['lotteryApi']);
+        },
         'serializer' => [
             'class' => 'krtv\yii2\serializer\Serializer',
             'formats' => [
@@ -65,6 +72,9 @@ $config = [
                ],
                'raffle_ticket_handler' => [
                    'class' => RaffleTicketHandler::class,
+               ],
+               'lottery_handler' => [
+                   'class' => LotteryHandler::class,
                ],
             ],
 

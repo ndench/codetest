@@ -2,11 +2,13 @@
 
 namespace app\serializer\handler;
 
+use app\models\Lottery;
 use app\models\RaffleTicket;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonDeserializationVisitor;
+use JMS\Serializer\TypeParser;
 
 class RaffleTicketHandler implements SubscribingHandlerInterface
 {
@@ -29,11 +31,16 @@ class RaffleTicketHandler implements SubscribingHandlerInterface
     {
         static::validateTicket($data);
 
-        $ticket = (new RaffleTicket())
+        $ticket = new RaffleTicket();
+        $ticket
             ->setName($data['name'])
             ->setKey($data['key'])
             ->setAutoPlayable($data['autoplayable'])
         ;
+
+        $typeParser = new TypeParser();
+        $lottery = $visitor->getNavigator()->accept($data['lottery'], $typeParser->parse(Lottery::class), $context);
+        $ticket->setLottery($lottery);
 
         return $ticket;
     }

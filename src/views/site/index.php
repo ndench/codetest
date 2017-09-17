@@ -2,52 +2,81 @@
 
 /* @var $this yii\web\View */
 
+use app\grid\LinkColumn;
+use yii\data\ArrayDataProvider;
+use yii\grid\DataColumn;
+use yii\grid\GridView;
+use yii\helpers\Html;
+
 $this->title = 'Lottery Draws';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Your Lottery Draws!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p class="lead">Here are the greatest lotteries available. Customised specifically for you!</p>
     </div>
 
     <div class="body-content">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#raffles-tab" role="tab" data-toggle="tab">Raffles</a></li>
+                <li role="presentation"><a href="#lotteries-tab" role="tab" data-toggle="tab">Lotteries</a></li>
+            </ul>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+            <div class="tab-content">
+                <div class="tab-pane active" id="raffles-tab" role="tabpanel">
+                    <?php
+                    $raffleDataProvider = new ArrayDataProvider([
+                        'allModels' => $raffles,
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $raffleDataProvider,
+                        'columns' => [
+                            'name',
+                            'autoPlayable',
+                            [
+                                'attribute' => 'lottery',
+                                'value' => function ($model, $key, $index, $column) {
+                                    return Html::a(Html::encode($model['lottery']['name']), [
+                                        'site/lotteries',
+                                        'id' => Html::encode($model['lottery']['lotteryId'])
+                                    ]);
+                                },
+                                'format' => 'raw',
+                            ],
+                            [
+                                'attribute' => 'draw',
+                                'value' => function ($model, $key, $index, $column) {
+                                    return Html::a(Html::encode($model['draw']['name']), [
+                                        'site/draws',
+                                        'id' => Html::encode($model['draw']['number'])
+                                    ]);
+                                },
+                                'format' => 'raw',
+                            ],
+                        ],
+                    ])
+                    ?>
+                </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <div class="tab-pane" id="lotteries-tab" role="tabpanel">
+                    <?php
+                    $lotteryDataProvider = new ArrayDataProvider([
+                        'allModels' => $lotteries,
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $lotteryDataProvider,
+                        'columns' => [
+                            'name',
+                            'autoplayable',
+                        ],
+                    ])
+                    ?>
+                </div>
             </div>
         </div>
-
     </div>
 </div>

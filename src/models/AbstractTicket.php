@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-abstract class AbstractTicket implements TicketInterface
+abstract class AbstractTicket extends AbstractNormalizable implements TicketInterface
 {
     /** @var string */
     protected $key;
