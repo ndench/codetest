@@ -59,48 +59,6 @@ $config = [
             'formats' => [
                 'json',
             ],
-
-            'handlers' => [
-//               'datetime' => [
-//                   'defaultFormat' => 'c',  // ISO8601
-//               ],
-               'lottery_api_result_handler' => [
-                   'class' => LotteryApiResultHandler::class,
-               ],
-               'lottery_ticket_handler' => [
-                   'class' => LotteryTicketHandler::class,
-               ],
-               'raffle_ticket_handler' => [
-                   'class' => RaffleTicketHandler::class,
-               ],
-               'lottery_handler' => [
-                   'class' => LotteryHandler::class,
-               ],
-            ],
-
-            // Uncomment if you would like to use different naming strategy for properties.
-            // "camel_case" is a default one. Available strategies are: "camel_case", "identical" and "custom".
-            //
-            // 'namingStrategy' => [
-            //     'name' => 'camel_case',
-            //     'options' => [
-            //         'separator' => '_',
-            //         'lowerCase' => true,
-            //     ],
-            // ],
-
-            // Uncomment if you would like to configure class-metadata or enable cache.
-            //
-            // 'metadata' => [
-            //     'cache' => true,
-            //     'directories' => [
-            //         [
-            //             'namespace' => 'Foo\\Bar',
-            //             'alias' => '@app/config/serializer/foo/bar',
-            //         ],
-            //         // ...
-            //     ]
-            // ],
         ],
     ],
     'params' => $params,

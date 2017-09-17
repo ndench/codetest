@@ -28,6 +28,34 @@ class Lottery extends AbstractNormalizable
     /** @var int */
     protected $lotteryId;
 
+    protected static function getRequiredKeys(): array
+    {
+        return [
+            'id',
+            'name',
+            'desc',
+            'multidraw',
+            'type',
+            'icon_url',
+            'play_url',
+            'lottery_id',
+        ];
+    }
+
+    protected static function build(array $data): AbstractNormalizable
+    {
+        return (new static())
+            ->setId($data['id'])
+            ->setName($data['name'])
+            ->setDescription($data['desc'])
+            ->setMultidraw(filter_var($data['multidraw'], FILTER_VALIDATE_BOOLEAN))
+            ->setType($data['type'])
+            ->setIconUrl($data['icon_url'])
+            ->setPlayUrl($data['play_url'])
+            ->setLotteryId(filter_var($data['lottery_id'], FILTER_VALIDATE_INT))
+            ;
+    }
+
     public function getId(): string
     {
         return $this->id;
@@ -124,45 +152,17 @@ class Lottery extends AbstractNormalizable
         return $this;
     }
 
-    protected static function getRequiredKeys(): array
-    {
-        return [
-            'id',
-            'name',
-            'desc',
-            'multidraw',
-            'type',
-            'icon_url',
-            'play_url',
-            'lottery_id',
-        ];
-    }
-
-    protected static function build(array $data): AbstractNormalizable
-    {
-        return (new static())
-            ->setId($data['id'])
-            ->setName($data['name'])
-            ->setDescription($data['desc'])
-            ->setMultidraw(filter_var($data['multidraw'], FILTER_VALIDATE_BOOLEAN))
-            ->setType($data['type'])
-            ->setIconUrl($data['icon_url'])
-            ->setPlayUrl($data['play_url'])
-            ->setLotteryId(filter_var($data['lottery_id'], FILTER_VALIDATE_INT))
-            ;
-    }
-
     public function toArray(): array
     {
         return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
+            'id'          => $this->getId(),
+            'name'        => $this->getName(),
             'description' => $this->getDescription(),
-            'multidraw' => $this->isMultidraw(),
-            'type' => $this->getType(),
-            'icon' => $this->getIconUrl(),
-            'playUrl' => $this->getPlayUrl(),
-            'lotteryId' => $this->getLotteryId(),
+            'multidraw'   => $this->isMultidraw(),
+            'type'        => $this->getType(),
+            'icon'        => $this->getIconUrl(),
+            'playUrl'     => $this->getPlayUrl(),
+            'lotteryId'   => $this->getLotteryId(),
         ];
     }
 }

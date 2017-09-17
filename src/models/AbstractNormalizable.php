@@ -9,6 +9,7 @@ abstract class AbstractNormalizable implements NormalizableInterface
     public static function fromArray(array $data): NormalizableInterface
     {
         static::validate($data);
+
         return static::build($data);
     }
 
@@ -16,7 +17,9 @@ abstract class AbstractNormalizable implements NormalizableInterface
     {
         $missingRequiredKeys = array_diff(static::getRequiredKeys(), array_keys($data));
         if (0 !== count($missingRequiredKeys)) {
-            throw new InvalidApiResponseException(sprintf('Expected keys: [%s]', implode(',', static::getRequiredKeys())));
+            throw new InvalidApiResponseException(
+                sprintf('Expected keys: [%s]', implode(',', static::getRequiredKeys()))
+            );
         }
     }
 

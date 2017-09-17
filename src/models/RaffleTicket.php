@@ -15,30 +15,6 @@ class RaffleTicket extends AbstractTicket
         return 'raffle_ticket';
     }
 
-    public function getLottery(): Lottery
-    {
-        return $this->lottery;
-    }
-
-    public function setLottery(Lottery $lottery): RaffleTicket
-    {
-        $this->lottery = $lottery;
-
-        return $this;
-    }
-
-    public function getDraw(): RaffleDraw
-    {
-        return $this->draw;
-    }
-
-    public function setDraw(RaffleDraw $draw): RaffleTicket
-    {
-        $this->draw = $draw;
-
-        return $this;
-    }
-
     protected static function getRequiredKeys(): array
     {
         return [
@@ -67,14 +43,38 @@ class RaffleTicket extends AbstractTicket
         return $ticket;
     }
 
+    public function getLottery(): Lottery
+    {
+        return $this->lottery;
+    }
+
+    public function setLottery(Lottery $lottery): RaffleTicket
+    {
+        $this->lottery = $lottery;
+
+        return $this;
+    }
+
+    public function getDraw(): RaffleDraw
+    {
+        return $this->draw;
+    }
+
+    public function setDraw(RaffleDraw $draw): RaffleTicket
+    {
+        $this->draw = $draw;
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return [
-            'name' => $this->getName(),
-            'key' => $this->getKey(),
+            'name'         => $this->getName(),
+            'key'          => $this->getKey(),
             'autoPlayable' => $this->getAutoPlayable(),
-            'draw' => $this->getDraw()->toArray(),
-            'lottery' => $this->getLottery()->toArray(),
+            'draw'         => $this->getDraw()->toArray(),
+            'lottery'      => $this->getLottery()->toArray(),
         ];
     }
 }

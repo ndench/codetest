@@ -11,54 +11,57 @@ use PHPUnit\Framework\TestCase;
 class RaffleTicketTest extends TestCase
 {
     protected $prize;
+
     protected $offer;
+
     protected $draw;
+
     protected $lottery;
 
     public function setUp()
     {
         $this->prize = [
-            'card_title' => 'Mr',
-            'name' => 'Dench',
-            'description' => 'Mr Dench Owns This Prize',
+            'card_title'     => 'Mr',
+            'name'           => 'Dench',
+            'description'    => 'Mr Dench Owns This Prize',
             'value_is_exact' => false,
-            'edm_image' => 'hackertyper.net',
-            'value' => [
-                'amount' => '100',
-                'currency' => 'AUD'
+            'edm_image'      => 'hackertyper.net',
+            'value'          => [
+                'amount'   => '100',
+                'currency' => 'AUD',
             ],
         ];
 
         $this->offer = [
-            'name' => 'Offer me something',
-            'key' => 'For your life',
+            'name'        => 'Offer me something',
+            'key'         => 'For your life',
             'num_tickets' => 1,
-            'price' => [
-                'amount' => 'infinity',
-                'currency' => 'AUD'
+            'price'       => [
+                'amount'   => 'infinity',
+                'currency' => 'AUD',
             ],
-            'ribbon' => 'You need this',
+            'ribbon'      => 'You need this',
         ];
 
         $this->draw = [
-            'name' => 'I dare you',
-            'description' => 'Go ahead, draw one.',
-            'draw_number' => 666,
-            'draw_date' => '2017-09-30T22:55:00+1000',
-            'draw_stop' => '2017-10-01T00:00:00+1000',
+            'name'                     => 'I dare you',
+            'description'              => 'Go ahead, draw one.',
+            'draw_number'              => 666,
+            'draw_date'                => '2017-09-30T22:55:00+1000',
+            'draw_stop'                => '2017-10-01T00:00:00+1000',
             'terms_and_conditions_url' => 'dench.com/terms-of-code.php',
-            'prize' => $this->prize,
-            'offers' => [$this->offer],
+            'prize'                    => $this->prize,
+            'offers'                   => [$this->offer],
         ];
 
         $this->lottery = [
-            'id' => 'MEGA_LOTTERY_BUCKS',
-            'name' => 'Super Nintendo Lottery',
-            'desc' => 'A lottery to win Mario as a slave',
-            'multidraw' => true,
-            'type' => 'Draw names from a hat',
-            'icon_url' => 'nintendo.com/mario.jpg',
-            'play_url' => 'nintendo.com/lottery/mario',
+            'id'         => 'MEGA_LOTTERY_BUCKS',
+            'name'       => 'Super Nintendo Lottery',
+            'desc'       => 'A lottery to win Mario as a slave',
+            'multidraw'  => true,
+            'type'       => 'Draw names from a hat',
+            'icon_url'   => 'nintendo.com/mario.jpg',
+            'play_url'   => 'nintendo.com/lottery/mario',
             'lottery_id' => 1,
         ];
     }
@@ -77,10 +80,10 @@ class RaffleTicketTest extends TestCase
 
         /** @var RaffleTicket $ticket */
         $ticket = RaffleTicket::fromArray([
-            'draw' => $this->draw,
-            'lottery' => $this->lottery,
-            'name' => $name,
-            'key' => $key,
+            'draw'         => $this->draw,
+            'lottery'      => $this->lottery,
+            'name'         => $name,
+            'key'          => $key,
             'autoplayable' => $autoPlayable,
         ]);
 
@@ -100,16 +103,16 @@ class RaffleTicketTest extends TestCase
 
         /** @var RaffleTicket $ticket */
         $ticket = RaffleTicket::fromArray([
-            'draw' => $this->draw,
-            'lottery' => $this->lottery,
-            'name' => $name,
-            'key' => $key,
+            'draw'         => $this->draw,
+            'lottery'      => $this->lottery,
+            'name'         => $name,
+            'key'          => $key,
             'autoplayable' => $autoPlayable,
         ]);
 
         $expected = [
-            'name' => $name,
-            'key' => $key,
+            'name'         => $name,
+            'key'          => $key,
             'autoPlayable' => $autoPlayable,
         ];
 

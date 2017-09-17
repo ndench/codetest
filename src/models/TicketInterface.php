@@ -5,7 +5,7 @@ namespace app\models;
 interface TicketInterface
 {
     public static function getType(): string;
-    
+
     public function getKey(): string;
 
     public function setKey(string $key): TicketInterface;

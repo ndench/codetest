@@ -11,31 +11,32 @@ use PHPUnit\Framework\TestCase;
 class RaffleDrawTest extends TestCase
 {
     protected $prize;
+
     protected $offer;
 
     public function setUp()
     {
         $this->prize = [
-            'card_title' => 'Mr',
-            'name' => 'Dench',
-            'description' => 'Mr Dench Owns This Prize',
+            'card_title'     => 'Mr',
+            'name'           => 'Dench',
+            'description'    => 'Mr Dench Owns This Prize',
             'value_is_exact' => false,
-            'edm_image' => 'hackertyper.net',
-            'value' => [
-                'amount' => '100',
-                'currency' => 'AUD'
+            'edm_image'      => 'hackertyper.net',
+            'value'          => [
+                'amount'   => '100',
+                'currency' => 'AUD',
             ],
         ];
 
         $this->offer = [
-            'name' => 'Offer me something',
-            'key' => 'For your life',
+            'name'        => 'Offer me something',
+            'key'         => 'For your life',
             'num_tickets' => 1,
-            'price' => [
-                'amount' => 'infinity',
-                'currency' => 'AUD'
+            'price'       => [
+                'amount'   => 'infinity',
+                'currency' => 'AUD',
             ],
-            'ribbon' => 'You need this',
+            'ribbon'      => 'You need this',
         ];
     }
 
@@ -56,14 +57,14 @@ class RaffleDrawTest extends TestCase
 
         /** @var RaffleDraw $draw */
         $draw = RaffleDraw::fromArray([
-            'name' => $name,
-            'description' => $description,
-            'draw_number' => $number,
-            'draw_date' => $start,
-            'draw_stop' => $end,
+            'name'                     => $name,
+            'description'              => $description,
+            'draw_number'              => $number,
+            'draw_date'                => $start,
+            'draw_stop'                => $end,
             'terms_and_conditions_url' => $termsUrl,
-            'prize' => $this->prize,
-            'offers' => [$this->offer],
+            'prize'                    => $this->prize,
+            'offers'                   => [$this->offer],
         ]);
 
         static::assertInstanceOf(RaffleDraw::class, $draw);
@@ -89,23 +90,23 @@ class RaffleDrawTest extends TestCase
 
         /** @var RaffleDraw $draw */
         $draw = RaffleDraw::fromArray([
-            'name' => $name,
-            'description' => $description,
-            'draw_number' => $number,
-            'draw_date' => $start,
-            'draw_stop' => $end,
+            'name'                     => $name,
+            'description'              => $description,
+            'draw_number'              => $number,
+            'draw_date'                => $start,
+            'draw_stop'                => $end,
             'terms_and_conditions_url' => $termsUrl,
-            'prize' => $this->prize,
-            'offers' => [$this->offer],
+            'prize'                    => $this->prize,
+            'offers'                   => [$this->offer],
         ]);
 
         $expected = [
-            'name' => $name,
+            'name'        => $name,
             'description' => $description,
-            'number' => $number,
-            'startDate' => (new \DateTime($start))->format('d.m.Y H:i:s'),
-            'endDate' => (new \DateTime($end))->format('d.m.Y H:i:s'),
-            'termsUrl' => $termsUrl,
+            'number'      => $number,
+            'startDate'   => (new \DateTime($start))->format('d.m.Y H:i:s'),
+            'endDate'     => (new \DateTime($end))->format('d.m.Y H:i:s'),
+            'termsUrl'    => $termsUrl,
         ];
 
         $actual = $draw->toArray();

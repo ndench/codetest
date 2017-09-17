@@ -26,16 +26,18 @@ class LotteryTest extends TestCase
         $lotteryId = 1;
 
         /** @var Lottery $lottery */
-        $lottery = Lottery::fromArray([
-            'id' => $id,
-            'name' => $name,
-            'desc' => $description,
-            'multidraw' => $multidraw,
-            'type' => $type,
-            'icon_url' => $iconUrl,
-            'play_url' => $playUrl,
-            'lottery_id' => $lotteryId,
-        ]);
+        $lottery = Lottery::fromArray(
+            [
+                'id'         => $id,
+                'name'       => $name,
+                'desc'       => $description,
+                'multidraw'  => $multidraw,
+                'type'       => $type,
+                'icon_url'   => $iconUrl,
+                'play_url'   => $playUrl,
+                'lottery_id' => $lotteryId,
+            ]
+        );
 
         static::assertInstanceOf(Lottery::class, $lottery);
         static::assertSame($id, $lottery->getId());
@@ -61,25 +63,25 @@ class LotteryTest extends TestCase
 
         /** @var Lottery $lottery */
         $lottery = Lottery::fromArray([
-            'id' => $id,
-            'name' => $name,
-            'desc' => $description,
-            'multidraw' => $multidraw,
-            'type' => $type,
-            'icon_url' => $iconUrl,
-            'play_url' => $playUrl,
+            'id'         => $id,
+            'name'       => $name,
+            'desc'       => $description,
+            'multidraw'  => $multidraw,
+            'type'       => $type,
+            'icon_url'   => $iconUrl,
+            'play_url'   => $playUrl,
             'lottery_id' => $lotteryId,
         ]);
 
         $expected = [
-            'id' => $id,
-            'name' => $name,
+            'id'          => $id,
+            'name'        => $name,
             'description' => $description,
-            'multidraw' => $multidraw,
-            'type' => $type,
-            'icon' => $iconUrl,
-            'playUrl' => $playUrl,
-            'lotteryId' => $lotteryId,
+            'multidraw'   => $multidraw,
+            'type'        => $type,
+            'icon'        => $iconUrl,
+            'playUrl'     => $playUrl,
+            'lotteryId'   => $lotteryId,
         ];
 
         static::assertSame($expected, $lottery->toArray());

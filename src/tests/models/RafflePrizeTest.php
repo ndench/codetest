@@ -25,14 +25,14 @@ class RafflePrizeTest extends TestCase
 
         /** @var RafflePrize $prize */
         $prize = RafflePrize::fromArray([
-            'card_title' => $cardTitle,
-            'name' => $name,
-            'description' => $description,
+            'card_title'     => $cardTitle,
+            'name'           => $name,
+            'description'    => $description,
             'value_is_exact' => $exact,
-            'edm_image' => $image,
-            'value' => [
-                'amount' => '9999999999999',
-                'currency' => 'AUD'
+            'edm_image'      => $image,
+            'value'          => [
+                'amount'   => '9999999999999',
+                'currency' => 'AUD',
             ],
         ]);
 
@@ -56,24 +56,24 @@ class RafflePrizeTest extends TestCase
 
         /** @var RafflePrize $prize */
         $prize = RafflePrize::fromArray([
-            'card_title' => $cardTitle,
-            'name' => $name,
-            'description' => $description,
+            'card_title'     => $cardTitle,
+            'name'           => $name,
+            'description'    => $description,
             'value_is_exact' => $exact,
-            'edm_image' => $image,
-            'value' => [
-                'amount' => '9999999999999',
-                'currency' => 'AUD'
+            'edm_image'      => $image,
+            'value'          => [
+                'amount'   => '9999999999999',
+                'currency' => 'AUD',
             ],
         ]);
 
         $expected = [
-            'cardTitle' => $cardTitle,
-            'name' => $name,
+            'cardTitle'   => $cardTitle,
+            'name'        => $name,
             'description' => $description,
-            'exact' => $exact,
-            'image' => $image,
-            'value' => $value,
+            'exact'       => $exact,
+            'image'       => $image,
+            'value'       => $value,
         ];
 
         static::assertSame($expected, $prize->toArray());

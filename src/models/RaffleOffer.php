@@ -19,6 +19,29 @@ class RaffleOffer extends AbstractNormalizable
     /** @var string */
     protected $ribbon;
 
+    protected static function getRequiredKeys(): array
+    {
+        return [
+            'name',
+            'key',
+            'num_tickets',
+            'price',
+            'ribbon',
+        ];
+    }
+
+    protected static function build(array $data): AbstractNormalizable
+    {
+        $offer = new static();
+        $offer->name = $data['name'];
+        $offer->key = $data['key'];
+        $offer->numTickets = filter_var($data['num_tickets'], FILTER_VALIDATE_INT);
+        $offer->price = sprintf('$%s %s', $data['price']['amount'], $data['price']['currency']);
+        $offer->ribbon = $data['ribbon'];
+
+        return $offer;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -44,37 +67,14 @@ class RaffleOffer extends AbstractNormalizable
         return $this->ribbon;
     }
 
-    protected static function getRequiredKeys(): array
-    {
-        return [
-            'name',
-            'key',
-            'num_tickets',
-            'price',
-            'ribbon',
-        ];
-    }
-
-    protected static function build(array $data): AbstractNormalizable
-    {
-        $offer = new static();
-        $offer->name = $data['name'];
-        $offer->key = $data['key'];
-        $offer->numTickets = filter_var($data['num_tickets'], FILTER_VALIDATE_INT);
-        $offer->price = sprintf('$%s %s', $data['price']['amount'], $data['price']['currency']);
-        $offer->ribbon = $data['ribbon'];
-
-        return $offer;
-    }
-
     public function toArray(): array
     {
         return [
-            'name' => $this->getName(),
-            'key' => $this->getKey(),
+            'name'       => $this->getName(),
+            'key'        => $this->getKey(),
             'numTickets' => $this->getNumTickets(),
-            'price' => $this->getPrice(),
-            'ribbon' => $this->getRibbon(),
+            'price'      => $this->getPrice(),
+            'ribbon'     => $this->getRibbon(),
         ];
     }
 }

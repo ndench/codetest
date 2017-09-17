@@ -3,7 +3,6 @@
 namespace app\api;
 
 use app\exception\InvalidApiResponseException;
-use app\exception\InvalidTicketException;
 use app\models\Lottery;
 use app\models\RaffleDraw;
 use app\models\RaffleTicket;
@@ -41,6 +40,7 @@ class LotteryClient
     public function getRaffleLotteries(): array
     {
         $this->init();
+
         return $this->raffleLotteries;
     }
 
@@ -50,6 +50,7 @@ class LotteryClient
     public function getRaffleDraws(): array
     {
         $this->init();
+
         return $this->raffleDraws;
     }
 
@@ -59,6 +60,7 @@ class LotteryClient
     public function getRaffleTickets(): array
     {
         $this->init();
+
         return $this->raffleTickets;
     }
 
@@ -113,6 +115,7 @@ class LotteryClient
             }
 
             if (RaffleTicket::getType() === $ticketData['type']) {
+                /** @var RaffleTicket $ticket */
                 $ticket = RaffleTicket::fromArray($ticketData);
 
                 $draw = $ticket->getDraw();

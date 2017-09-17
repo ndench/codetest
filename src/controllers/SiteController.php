@@ -3,19 +3,11 @@
 namespace app\controllers;
 
 use app\api\LotteryClient;
-use app\models\ApiResult;
-use app\models\Lottery;
-use app\models\RaffleDraw;
 use app\models\RaffleTicket;
-use app\models\TicketInterface;
-use app\serializer\handler\LotteryApiResultHandler;
-use GuzzleHttp\Client;
-use krtv\yii2\serializer\Serializer;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\web\Controller;
 
 class SiteController extends Controller
 {
@@ -27,17 +19,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only'  => ['logout'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'allow'   => true,
+                        'roles'   => ['@'],
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'  => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -51,11 +43,11 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
+            'error'   => [
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
+                'class'           => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
@@ -72,12 +64,15 @@ class SiteController extends Controller
         $client = Yii::$app->lotteryClient;
 
         $tickets = $client->getRaffleTickets();
-        $ticketArray = array_map(function (RaffleTicket $ticket) {
-            return $ticket->toArray();
-        }, $tickets);
+        $ticketArray = array_map(
+            function (RaffleTicket $ticket) {
+                return $ticket->toArray();
+            },
+            $tickets
+        );
 
         return $this->render('index', [
-            'raffles' => $ticketArray,
+            'raffles'   => $ticketArray,
             'lotteries' => [],
         ]);
     }
@@ -88,6 +83,7 @@ class SiteController extends Controller
         $client = Yii::$app->lotteryClient;
 
         $lottery = $client->getLotteryById($id);
+
         return $this->render('lotteries', [
             'lottery' => $lottery,
         ]);
@@ -99,6 +95,7 @@ class SiteController extends Controller
         $client = Yii::$app->lotteryClient;
 
         $draw = $client->getDrawByNumber($number);
+
         return $this->render('draws', [
             'draw' => $draw,
         ]);

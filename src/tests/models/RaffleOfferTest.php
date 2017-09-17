@@ -24,14 +24,14 @@ class RaffleOfferTest extends TestCase
 
         /** @var RaffleOffer $offer */
         $offer = RaffleOffer::fromArray([
-            'name' => $name,
-            'key' => $key,
+            'name'        => $name,
+            'key'         => $key,
             'num_tickets' => $numTickets,
-            'price' => [
-                'amount' => '0.5',
-                'currency' => 'AUD'
+            'price'       => [
+                'amount'   => '0.5',
+                'currency' => 'AUD',
             ],
-            'ribbon' => $ribbon,
+            'ribbon'      => $ribbon,
         ]);
 
         static::assertInstanceOf(RaffleOffer::class, $offer);
@@ -52,22 +52,22 @@ class RaffleOfferTest extends TestCase
 
         /** @var RaffleOffer $offer */
         $offer = RaffleOffer::fromArray([
-            'name' => $name,
-            'key' => $key,
+            'name'        => $name,
+            'key'         => $key,
             'num_tickets' => $numTickets,
-            'price' => [
-                'amount' => '0.5',
-                'currency' => 'AUD'
+            'price'       => [
+                'amount'   => '0.5',
+                'currency' => 'AUD',
             ],
-            'ribbon' => $ribbon,
+            'ribbon'      => $ribbon,
         ]);
 
         $expected = [
-            'name' => $name,
-            'key' => $key,
+            'name'       => $name,
+            'key'        => $key,
             'numTickets' => $numTickets,
-            'price' => $price,
-            'ribbon' => $ribbon,
+            'price'      => $price,
+            'ribbon'     => $ribbon,
         ];
 
         static::assertSame($expected, $offer->toArray());

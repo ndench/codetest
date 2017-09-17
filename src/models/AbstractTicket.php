@@ -12,7 +12,7 @@ abstract class AbstractTicket extends AbstractNormalizable implements TicketInte
 
     /** @var string */
     protected $autoPlayable;
-    
+
 
     public function getKey(): string
     {
