@@ -44,10 +44,7 @@ go get -v ./... && go build -v
 
 # To run the customers service
 
-I wrote this using ansible and PHP because I felt it was more relevant.
 You can just run any server that can run PHP, but the following instructions are how I set up my dev environment.
-
-TODO: instructions on how to run PHP internal server instad of setting up dev enviroment
 
 ## Things to install
 * vagrant
@@ -56,7 +53,7 @@ TODO: instructions on how to run PHP internal server instad of setting up dev en
 
 ## Starting the virtual machine
 Running `vagrant up` will bring up the VM. It will download the base ubuntu box, run some update scripts,
-then run some ansible provisioning to set it up for the project.
+then run ansible provisioning to set it up for the project.
 
 You might get an error saying that an IP address cannot be assigned. There is a 
 (known problem)[https://github.com/mitchellh/vagrant/issues/7138#issuecomment-196786583] and can be resolved
@@ -73,8 +70,44 @@ If you had problems bringing up the VM, you might need to manually provision it 
 vagrant provision
 ```
 
+## Composer install
+You will then need to install composer dependencies
+
+```
+vagrant ssh
+cd /srv/www/codetest
+php composer.phar install
+```
+
+## Running tests
+You can run PHPUnit tests from `/srv/www/codetest`:
+
+```
+vendor/bin/phpunit
+```
+
+This will build code coverage report in html, located in `tests/_output`.
+
 
 ## Accessing the service
 
 Once the VM is up and running, you can access it at http://localhost:13001.
 
+
+# Reasoning behind my implementation
+
+I wrote this using Yii and provisioned the vm using ansible because I felt it was more relevant.
+I've never done Yii before so I thought this was a good opportunity to learn.
+
+Instead of just hitting the API and sending json data through to the view, I parsed it into objects
+and validated it. I feel like this is a better approach because I can be sure of the format.
+
+## Things I could do better next time
+
+I tried getting JMS Serializer to automatically deserialize the json to my models, however this
+proved to be quite difficult. Especially because the models are all nested, and because I wanted
+to be able to store the nested models separately so I could access a single Lottery or Draw for instance.
+It would remove a lot of code duplication if I got JMS Serializer configured correctly.
+
+I would also like to cache the data in the LotteryClient using Redis. It is unecessary to be
+hitting the api and rebuilding all the data on every page load.
