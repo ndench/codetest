@@ -54,12 +54,6 @@ $config = [
         'lotteryClient' => function () use ($params) {
             return new LotteryClient(new Client(), $params['lotteryApi']);
         },
-        'serializer' => [
-            'class' => 'krtv\yii2\serializer\Serializer',
-            'formats' => [
-                'json',
-            ],
-        ],
     ],
     'params' => $params,
 ];

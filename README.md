@@ -79,6 +79,8 @@ cd /srv/www/codetest
 php composer.phar global require "fxp/composer-asset-plugin:^1.3.1"
 php composer.phar install
 ```
+You might be asked for a github api token if you hit the ratelime. You can create one
+[here](https://github.com/settings/tokens/new?scopes=repo).
 
 ## Running tests
 You can run PHPUnit tests from `/srv/www/codetest`:
