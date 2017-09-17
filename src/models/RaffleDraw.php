@@ -8,7 +8,7 @@ class RaffleDraw extends AbstractNormalizable
     protected $name;
 
     /** @var string */
-    protected $desc;
+    protected $description;
 
     /** @var int */
     protected $number;
@@ -19,28 +19,20 @@ class RaffleDraw extends AbstractNormalizable
     /** @var \DateTime */
     protected $end;
 
+    /** @var string */
+    protected $termsUrl;
+
+    /** @var */
+    protected $prize;
+
     public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name): RaffleDraw
+    public function getDescription(): string
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDesc(): string
-    {
-        return $this->desc;
-    }
-
-    public function setDesc(string $desc): RaffleDraw
-    {
-        $this->desc = $desc;
-
-        return $this;
+        return $this->description;
     }
 
     public function getNumber(): int
@@ -48,23 +40,9 @@ class RaffleDraw extends AbstractNormalizable
         return $this->number;
     }
 
-    public function setNumber(int $number): RaffleDraw
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
     public function getStart(): \DateTime
     {
         return $this->start;
-    }
-
-    public function setStart(\DateTime $start): RaffleDraw
-    {
-        $this->start = $start;
-
-        return $this;
     }
 
     public function getEnd(): \DateTime
@@ -72,11 +50,14 @@ class RaffleDraw extends AbstractNormalizable
         return $this->end;
     }
 
-    public function setEnd(\DateTime $end): RaffleDraw
+    public function getTermsUrl(): string
     {
-        $this->end = $end;
+        return $this->termsUrl;
+    }
 
-        return $this;
+    public function getPrize(): RafflePrize
+    {
+        return $this->prize;
     }
 
     protected static function getRequiredKeys(): array
@@ -87,28 +68,35 @@ class RaffleDraw extends AbstractNormalizable
             'draw_number',
             'draw_date',
             'draw_stop',
+            'terms_and_conditions_url',
+            'prize',
         ];
     }
 
     protected static function build(array $data): AbstractNormalizable
     {
-        return (new static())
-            ->setName($data['name'])
-            ->setDesc($data['description'])
-            ->setNumber($data['draw_number'])
-            ->setStart(new \DateTime($data['draw_date']))
-            ->setEnd(new \DateTime($data['draw_stop']))
-        ;
+        $draw = new static();
+        $draw->name = $data['name'];
+        $draw->description = $data['description'];
+        $draw->number = $data['draw_number'];
+        $draw->start = new \DateTime($data['draw_date']);
+        $draw->end = new \DateTime($data['draw_stop']);
+        $draw->termsUrl = $data['terms_and_conditions_url'];
+        $draw->prize = RafflePrize::fromArray($data['prize']);
+
+        return $draw;
     }
 
     public function toArray(): array
     {
         return [
             'name' => $this->getName(),
-            'desc' => $this->getDesc(),
+            'description' => $this->getDescription(),
             'number' => $this->getNumber(),
             'startDate' => $this->getStart()->format('d.m.Y H:i:s'),
-            'endDate' => $this->getEnd()->format('d.m.Y H:i:s')
+            'endDate' => $this->getEnd()->format('d.m.Y H:i:s'),
+            'termsUrl' => $this->getTermsUrl(),
+            'prize' => $this->getPrize()->toArray(),
         ];
     }
 }

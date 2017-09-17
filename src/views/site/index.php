@@ -55,24 +55,35 @@ $this->title = 'Lottery Draws';
                                 },
                                 'format' => 'raw',
                             ],
+                            [
+                                'attribute' => 'prize',
+                                'value' => function ($model, $key, $index, $column) {
+                                    return Html::a(Html::encode($model['draw']['prize']['name']), [
+                                        'site/draws',
+                                        'number' => Html::encode($model['draw']['number'])
+                                    ]);
+                                },
+                                'format' => 'raw',
+                            ],
                         ],
                     ])
                     ?>
                 </div>
 
                 <div class="tab-pane" id="lotteries-tab" role="tabpanel">
-                    <?php
-                    $lotteryDataProvider = new ArrayDataProvider([
-                        'allModels' => $lotteries,
-                    ]);
-                    echo GridView::widget([
-                        'dataProvider' => $lotteryDataProvider,
-                        'columns' => [
-                            'name',
-                            'autoplayable',
-                        ],
-                    ])
-                    ?>
+                    <h3>Coming Soon!</h3>
+<!--                    --><?php
+//                    $lotteryDataProvider = new ArrayDataProvider([
+//                        'allModels' => $lotteries,
+//                    ]);
+//                    echo GridView::widget([
+//                        'dataProvider' => $lotteryDataProvider,
+//                        'columns' => [
+//                            'name',
+//                            'autoplayable',
+//                        ],
+//                    ])
+//                    ?>
                 </div>
             </div>
         </div>

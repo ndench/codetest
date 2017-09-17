@@ -99,6 +99,8 @@ class SiteController extends Controller
         $client = Yii::$app->lotteryClient;
 
         $draw = $client->getDrawByNumber($number);
-        var_dump($draw);
+        return $this->render('draws', [
+            'draw' => $draw,
+        ]);
     }
 }
